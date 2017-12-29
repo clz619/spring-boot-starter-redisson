@@ -22,7 +22,8 @@ import win.sinno.spring.boot.starter.redisson.RedissonConfigurationProperties.Si
  */
 
 @Configuration
-@ConditionalOnClass(Redisson.class)
+@ConditionalOnClass({Redisson.class})
+@ConditionalOnMissingBean(RedissonClient.class)
 @ConditionalOnProperty(prefix = "spring.redisson", name = "type")
 @EnableConfigurationProperties(RedissonConfigurationProperties.class)
 public class RedissonAutoConfiguration {
@@ -35,7 +36,6 @@ public class RedissonAutoConfiguration {
   }
 
   @Bean(destroyMethod = "shutdown")
-  @ConditionalOnMissingBean
   public RedissonClient redissonClient() {
     Config config = new Config();
 
