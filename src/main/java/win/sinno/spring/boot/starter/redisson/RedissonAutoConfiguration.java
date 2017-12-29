@@ -3,6 +3,7 @@ package win.sinno.spring.boot.starter.redisson;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,12 +29,8 @@ import win.sinno.spring.boot.starter.redisson.RedissonConfigurationProperties.Si
 @EnableConfigurationProperties(RedissonConfigurationProperties.class)
 public class RedissonAutoConfiguration {
 
+  @Autowired
   private RedissonConfigurationProperties redissonConfigurationProperties;
-
-  public RedissonAutoConfiguration(
-      RedissonConfigurationProperties redissonConfigurationProperties) {
-    this.redissonConfigurationProperties = redissonConfigurationProperties;
-  }
 
   @Bean(destroyMethod = "shutdown")
   public RedissonClient redissonClient() {
